@@ -1,0 +1,18 @@
+{
+  "frontend/src/components/layout/Header.tsx": "Sticky top navigation header with logo, nav links to all pages, and login/logout button. Fixed conflicting `flex hidden` Tailwind classes on the username display div by replacing with `hidden sm:flex`.",
+  "frontend/src/App.tsx": "Main app entry with TanStack Router setup, layout component with header/footer/profile modal, and all page routes registered.",
+  "frontend/src/components/PixelButton.tsx": "Reusable pixel-art styled button component with green/orange/pink/red/cyan variants and sm/md/lg sizes, moved out of read-only ui/ directory.",
+  "frontend/src/components/PixelCard.tsx": "Reusable pixel-art styled card component with default/neon/orange/pink variants, moved out of read-only ui/ directory.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal for first-time login profile setup, updated import path for PixelButton from components/ instead of components/ui/.",
+  "frontend/src/components/community/RatingDialog.tsx": "Star rating dialog shown after completing a community level, updated import path for PixelButton.",
+  "frontend/src/components/editor/TilePalette.tsx": "Sidebar tile palette for the level editor with SVG previews for each tile type, removed unused PixelCard import.",
+  "frontend/src/components/editor/EditorControls.tsx": "Toolbar for the level editor with undo/redo/play-test/publish/clear buttons, updated PixelButton import path.",
+  "frontend/src/components/editor/EditorCanvas.tsx": "Scrollable canvas grid for the level editor with tile drawing/erasing, fixed TileType zero-check using `(tile as number) === 0` to avoid TS2367.",
+  "frontend/src/components/game/GameEngine.tsx": "Core HTML5 canvas game engine with physics, collision detection, sprite rendering, and HUD; fixed TileType zero-checks using `(tile as number) === 0`.",
+  "frontend/src/components/game/LevelCompletionScreen.tsx": "Overlay shown on level completion with score/attempts display and navigation buttons, updated PixelButton/PixelCard import paths.",
+  "frontend/src/pages/LevelSelectPage.tsx": "Level selection page showing all prebuilt levels with difficulty, best score, and lock state, updated PixelButton/PixelCard import paths.",
+  "frontend/src/pages/GamePage.tsx": "Game play page hosting the GameEngine, handles score submission, profile updates, level completion, and rating dialogs; updated PixelButton import path.",
+  "frontend/src/pages/LevelEditorPage.tsx": "Full level editor page with tile palette, scrollable canvas, undo/redo history, play-test mode, and publish functionality.",
+  "frontend/src/pages/CommunityHubPage.tsx": "Community hub listing all published levels with play counts, ratings, play/delete actions, and navigation to the editor.",
+  "frontend/src/pages/LeaderboardPage.tsx": "Global leaderboard page with level selector tabs showing top-10 scores per level with rank icons and current-user highlighting."
+}

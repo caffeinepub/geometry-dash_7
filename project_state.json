@@ -1,0 +1,141 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Geometry Dash-inspired rhythm-based platformer browser game with pixel art style, multiple pre-built levels, full drag-and-drop level editor, community level sharing, Internet Identity login, progress/score saving, and a global leaderboard.",
+  "architectural_notes": [
+    "Internet Identity used for authentication and tying save data/leaderboard entries to players",
+    "Player progress and scores persisted per user account (best score, attempts, levels unlocked)",
+    "Community levels stored and associated with creator's profile"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Pixel art sprite sheet with cube player character in idle, jumping, and dead states on a transparent background (cube-sprites.dim_256x64.png)\n- Pixel art tile sheet containing ground block, spike, jump pad, and decorative background tile variants on a transparent background (tile-sprites.dim_512x64.png)\n- Pixel art parallax scrolling background scene with dark sky, geometric cityscape silhouette, and neon grid ground for level backdrop (level-bg.dim_1920x360.png)\n- Pixel art game logo for 'Pixel Dash' with neon glow effect and retro styling on a transparent background (logo.dim_512x128.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-login-logout-in-the-frontend-authenticated-players-see-their-username-progress-and-created-levels-unauthenticated-visitors-can-browse-and-play-levels-but-cannot-save-progress-publish-levels-or-appear-on-the-leaderboard",
+      "title": "Implement Internet Identity login/logout in the frontend. Authenticated players see their username, progress, and created levels. Unauthenticated visitors can browse and play levels but cannot save progress, publish levels, or appear on the leaderboard.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-rhythm-based-2d-platformer-game-engine-in-the-frontend-using-react-and-a-canvas-animation-loop-the-player-controls-a-cube-character-that-auto-runs-forward-pressing-space-or-tapping-causes-the-cube-to-jump-collision-with-spikes-or-obstacles-kills-the-player-and-restarts-the-level-the-game-tracks-percentage-completion-and-a-score-based-on-how-far-the-player-progresses-on-level-completion-save-the-best-score-and-increment-attempt-count-via-the-backend",
+      "title": "Build a rhythm-based 2D platformer game engine in the frontend using React and a canvas/animation loop. The player controls a cube character that auto-runs forward; pressing Space or tapping causes the cube to jump. Collision with spikes or obstacles kills the player and restarts the level. The game tracks percentage completion and a score based on how far the player progresses. On level completion, save the best score and increment attempt count via the backend.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-and-include-at-least-3-pre-built-levels-with-increasing-difficulty-encoded-as-tile-map-data-each-level-should-have-a-distinct-color-theme-obstacle-density-and-rhythm-pattern-timing-of-obstacles-to-match-a-beat-feel-levels-are-displayed-in-a-level-select-screen-sorted-by-difficulty",
+      "title": "Design and include at least 3 pre-built levels with increasing difficulty encoded as tile-map data. Each level should have a distinct color theme, obstacle density, and rhythm pattern (timing of obstacles to match a beat feel). Levels are displayed in a level-select screen sorted by difficulty.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-full-drag-and-drop-pixel-art-tile-grid-level-editor-the-editor-canvas-shows-a-scrollable-horizontal-grid-a-sidebar-palette-contains-all-tile-types-empty-ground-block-spike-jump-pad-and-decorative-tiles-players-drag-tiles-from-the-palette-onto-the-grid-the-editor-supports-undo-redo-a-play-test-mode-to-try-the-level-in-editor-and-a-publish-button-that-saves-the-level-to-the-backend-under-the-authenticated-player-s-account",
+      "title": "Build a full drag-and-drop pixel art tile-grid level editor. The editor canvas shows a scrollable horizontal grid. A sidebar palette contains all tile types: empty, ground block, spike, jump pad, and decorative tiles. Players drag tiles from the palette onto the grid. The editor supports undo/redo, a play-test mode to try the level in-editor, and a Publish button that saves the level to the backend under the authenticated player's account.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-community-levels-hub-page-where-players-can-browse-published-levels-the-page-lists-levels-with-their-title-creator-name-play-count-and-average-rating-players-can-click-a-level-to-play-it-and-submit-a-1-5-star-rating-after-completion-authenticated-players-can-also-delete-their-own-published-levels",
+      "title": "Build a Community Levels hub page where players can browse published levels. The page lists levels with their title, creator name, play count, and average rating. Players can click a level to play it and submit a 1–5 star rating after completion. Authenticated players can also delete their own published levels.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-global-leaderboard-page-that-displays-the-top-10-scores-per-level-both-pre-built-and-community-levels-each-entry-shows-rank-player-name-derived-from-their-principal-or-a-set-display-name-score-and-date-achieved-tabs-or-a-dropdown-allow-switching-between-levels",
+      "title": "Build a Global Leaderboard page that displays the top 10 scores per level (both pre-built and community levels). Each entry shows rank, player name (derived from their principal or a set display name), score, and date achieved. Tabs or a dropdown allow switching between levels.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-pixel-art-visual-theme-throughout-the-entire-application-chunky-pixel-style-typography-e-g-a-pixel-retro-google-font-a-dark-background-with-vibrant-neon-accent-colors-pixelated-sprites-for-the-cube-character-and-all-obstacle-tile-types-rendered-on-canvas-and-a-pixel-bordered-ui-for-all-menus-cards-and-buttons-the-style-should-feel-like-a-retro-arcade-game",
+      "title": "Apply a cohesive pixel art visual theme throughout the entire application: chunky pixel-style typography (e.g., a pixel/retro Google Font), a dark background with vibrant neon accent colors, pixelated sprites for the cube character and all obstacle/tile types rendered on canvas, and a pixel-bordered UI for all menus, cards, and buttons. The style should feel like a retro arcade game.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-the-generated-pixel-art-sprite-sheet-assets-cube-character-obstacle-tiles-background-tiles-ui-icons-as-static-image-files-served-from-frontend-public-assets-generated",
+      "title": "Render the generated pixel art sprite sheet assets (cube character, obstacle tiles, background tiles, UI icons) as static image files served from frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Multiple pre-built levels with increasing difficulty",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Rhythm-based platformer gameplay with cube character and obstacles",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Full pixel art visual style (sprites, UI, tiles)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Full drag-and-drop grid level editor with pixel art tiles",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Publish and browse community-created levels",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Internet Identity login for player accounts",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Save player progress: best score, attempts, levels unlocked/completed",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Global leaderboard showing top scores per level with player names",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Implement a Motoko backend actor that stores and retrieves all persistent game data: player profiles (principal → username, levels unlocked, attempts per level, best score per level), community-published levels (id, creator principal, title, tile data, play count, ratings), and a global leaderboard (top scores per level across all players).",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "2d",
+  "projectName": "Geometry Dash",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

@@ -1,0 +1,255 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Geometry Dash-Inspired Pixel Art Platformer with Level Editor & Leaderboard",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Implement Internet Identity login/logout in the frontend with authentication state management. Use the authorization component to handle role-based access. Authenticated players see their username, progress, and created levels. Unauthenticated visitors can browse and play levels but cannot save progress, publish levels, or appear on the leaderboard.",
+      "acceptanceCriteria": [
+        "Login / logout buttons are visible in the navigation",
+        "Authenticated state is reflected app-wide via React context",
+        "Unauthenticated users can view and play levels",
+        "Only authenticated users can submit scores, save progress, or publish levels",
+        "Player's principal is used as their identity key in the backend"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "create",
+          "description": "Create a header navigation component with login/logout button, app logo (using frontend/public/assets/generated/logo.dim_512x128.png), and navigation links to level select, level editor, community hub, and leaderboard. The login button integrates with Internet Identity via the authorization component. Verify the authorization component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a modal component that prompts first-time authenticated users to enter their username. Use the authorization component's getCallerUserProfile and saveCallerUserProfile methods. Implement the pattern to prevent modal flash during profile loading as described in the authorization component usage. Display when isAuthenticated && !profileLoading && isFetched && userProfile === null."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire in the Header component and ProfileSetupModal. Set up React Router with routes for home/level-select, game play, level editor, community hub, and leaderboard pages. Wrap routes with authentication checks where needed (editor publish, score submission require auth). Use the authorization component to manage authentication state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build a rhythm-based 2D game engine in the frontend using React and a canvas/animation loop. The player controls a cube character that auto-runs forward; pressing Space or tapping causes the cube to jump. Collision detection with spikes or obstacles kills the player and restarts the level. Track percentage completion and score. On level completion, save the best score and increment attempt count via the backend.",
+      "acceptanceCriteria": [
+        "Cube auto-runs and jumps on Space / tap input",
+        "Collision detection with spike and block obstacles kills the player",
+        "Death restarts the level and increments attempt counter",
+        "Completion percentage is displayed as a HUD element during play",
+        "Level completion screen shows final score, attempts, and a 'Next Level' button",
+        "Best score and attempts are submitted to the backend on completion or death"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/game/GameEngine.tsx",
+          "operation": "create",
+          "description": "Create the core 2D game engine component using HTML5 canvas and requestAnimationFrame. Render the parallax background using frontend/public/assets/generated/level-bg.dim_1920x360.png. Load and render cube sprites from frontend/public/assets/generated/cube-sprites.dim_256x64.png (idle, jumping, dead states). Load tile sprites from frontend/public/assets/generated/tile-sprites.dim_512x64.png for obstacles and ground. Implement auto-run physics, jump input on Space/tap, collision detection with spike/block tiles, death/restart logic, and percentage completion tracking. Display HUD showing percentage, score, and attempts."
+        },
+        {
+          "path": "frontend/src/components/game/LevelCompletionScreen.tsx",
+          "operation": "create",
+          "description": "Create a completion overlay that displays when a level is finished. Show final score, total attempts, and a 'Next Level' button. Call backend submitScore method (authenticated users only) to save the score and unlock the next level. Handle navigation to the next level or back to level select."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "create",
+          "description": "Create the game play page that hosts the GameEngine component. Accept level data via route params or state. Pass level tile-map data to GameEngine. Handle level completion and death callbacks. Show LevelCompletionScreen on finish. For authenticated users, call backend methods to save progress; for guests, show completion without saving."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the GamePage route (e.g., /play/:levelId) in the router. Ensure it is accessible to both authenticated and guest users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Design and include at least 3 pre-built levels with increasing difficulty encoded as tile-map data. Each level has a distinct color theme, obstacle density, and rhythm pattern. Levels are displayed in a level-select screen sorted by difficulty.",
+      "acceptanceCriteria": [
+        "At least 3 pre-built levels exist and are playable",
+        "Each level has a unique name, color palette, and increasing obstacle density",
+        "Level-select screen shows each level with its name, difficulty indicator, the player's best score, and attempt count",
+        "Levels are unlocked sequentially (complete level N to unlock N+1)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/data/prebuiltLevels.ts",
+          "operation": "create",
+          "description": "Define at least 3 pre-built levels as an array of level objects. Each level includes id, name, difficulty (easy/medium/hard), color theme (CSS variables or hex codes), and tileData (a string or 2D array encoding the tile-map: ground blocks, spikes, jump pads, decorative tiles). Use distinct obstacle densities and patterns for each level to create a rhythm feel."
+        },
+        {
+          "path": "frontend/src/pages/LevelSelectPage.tsx",
+          "operation": "create",
+          "description": "Create the level-select screen that lists all pre-built levels. For authenticated users, fetch their PlayerProfile from the backend to display best score and attempt count per level. Show a lock icon on levels not yet unlocked (based on unlockedLevels array in the profile). For guest users, show all levels as playable but without saved progress. Each level card displays name, difficulty badge, color theme preview, best score (if authenticated), and attempts. Clicking a level navigates to GamePage with that level's data."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the LevelSelectPage route (e.g., /levels) in the router and set it as the default landing page or link it from the Header. Ensure it is accessible to all users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Build a full drag-and-drop pixel art tile-grid level editor. The editor canvas shows a scrollable horizontal grid. A sidebar palette contains all tile types: empty, ground block, spike, jump pad, and decorative tiles. Players drag tiles from the palette onto the grid. The editor supports undo/redo, a play-test mode to try the level in-editor, and a Publish button that saves the level to the backend under the authenticated player's account.",
+      "acceptanceCriteria": [
+        "Scrollable horizontal grid canvas is rendered with correct pixel art tile visuals",
+        "Tiles can be dragged from palette and placed or erased on the grid",
+        "Undo and redo work for tile placement/erasure actions",
+        "Play-test mode launches the level in the game engine inside the editor",
+        "Authenticated users can publish the level with a title; it appears in the community hub",
+        "Unauthenticated users see a prompt to log in when they attempt to publish"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/editor/TilePalette.tsx",
+          "operation": "create",
+          "description": "Create a sidebar component that displays all available tile types (empty, ground block, spike, jump pad, decorative tiles) as draggable items. Render tile icons using sprites from frontend/public/assets/generated/tile-sprites.dim_512x64.png. Support drag-and-drop via React DnD or native HTML5 drag APIs. Each tile type has a label and visual preview."
+        },
+        {
+          "path": "frontend/src/components/editor/EditorCanvas.tsx",
+          "operation": "create",
+          "description": "Create the scrollable horizontal grid canvas for the level editor. Render the grid cells using a 2D array state and draw tiles using sprites from frontend/public/assets/generated/tile-sprites.dim_512x64.png. Support dropping tiles from the palette onto grid cells and erasing tiles. Implement horizontal scrolling for large levels. Maintain undo/redo history stacks for tile placement and erasure actions."
+        },
+        {
+          "path": "frontend/src/components/editor/EditorControls.tsx",
+          "operation": "create",
+          "description": "Create a controls toolbar for the editor with undo, redo, play-test, and publish buttons. Undo/redo modify the tile grid state using the history stacks. Play-test mode embeds the GameEngine component with the current editor grid data. Publish button (authenticated users only) opens a dialog to enter a level title, then calls the backend publishLevel method. For guest users, show a prompt to log in."
+        },
+        {
+          "path": "frontend/src/pages/LevelEditorPage.tsx",
+          "operation": "create",
+          "description": "Create the level editor page that hosts TilePalette, EditorCanvas, and EditorControls. Manage the tile grid state, undo/redo history, and play-test mode toggle. Handle publishing via backend publishLevel for authenticated users. Display the editor with pixel art visual styling consistent with the retro arcade theme."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the LevelEditorPage route (e.g., /editor) in the router. Link it from the Header navigation. Ensure it is accessible to all users, but only authenticated users can publish."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Build a Community Levels hub page where players can browse published levels. The page lists levels with their title, creator name, play count, and average rating. Players can click a level to play it and submit a 1–5 star rating after completion. Authenticated players can also delete their own published levels. Use the authorization component to verify user identity for deletion.",
+      "acceptanceCriteria": [
+        "Community hub lists all published levels with title, creator, play count, and average rating",
+        "Clicking a level launches it in the game engine",
+        "After completing a community level, authenticated players can submit a star rating",
+        "Authenticated creators see a delete button on their own levels",
+        "Play count increments each time a level is started"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/CommunityHubPage.tsx",
+          "operation": "create",
+          "description": "Create the community hub page that fetches all published levels via backend getAllCommunityLevels. Display each level as a card showing title, creator name (fetch via getUserProfile using creator principal), play count, and average rating. For authenticated users, compare the creator principal with the current user's principal (via useInternetIdentity identity) to show a delete button on their own levels. Clicking a level navigates to GamePage with that community level's data. Call backend incrementPlayCount when a level is started."
+        },
+        {
+          "path": "frontend/src/components/community/RatingDialog.tsx",
+          "operation": "create",
+          "description": "Create a rating dialog component that appears after an authenticated user completes a community level. Display a 1–5 star selector and submit the rating via backend rateLevel method. Show a success message after submission. For guest users, do not show the rating dialog."
+        },
+        {
+          "path": "frontend/src/pages/GamePage.tsx",
+          "operation": "modify",
+          "description": "Modify GamePage to detect when a community level is completed and show the RatingDialog for authenticated users. Pass the level ID to the dialog for rating submission."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the CommunityHubPage route (e.g., /community) in the router and link it from the Header navigation. Ensure it is accessible to all users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Build a Global Leaderboard page that displays the top 10 scores per level (both pre-built and community levels). Each entry shows rank, player name, score, and date achieved. Tabs or a dropdown allow switching between levels. Use backend getLeaderboardEntries and getUserProfile to fetch and display leaderboard data.",
+      "acceptanceCriteria": [
+        "Leaderboard page is accessible from the main navigation",
+        "Top 10 scores per level are fetched from the backend and displayed",
+        "Each row shows rank, player name, score, and date",
+        "Level tabs or dropdown allow switching which level's leaderboard is shown",
+        "The authenticated player's own entry is highlighted if they appear in the top 10"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LeaderboardPage.tsx",
+          "operation": "create",
+          "description": "Create the global leaderboard page with a level selector (tabs or dropdown) to switch between pre-built and community levels. Fetch top 10 scores for the selected level via backend getLeaderboardEntries. For each entry, fetch the player's username via getUserProfile using their principal. Display rank, player name, score, and timestamp. For authenticated users, highlight their own entry if present in the top 10 by comparing principals."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register the LeaderboardPage route (e.g., /leaderboard) in the router and link it from the Header navigation. Ensure it is accessible to all users."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Apply a cohesive pixel art visual theme throughout the entire application: chunky pixel-style typography, a dark background with vibrant neon accent colors, pixelated sprites for the cube character and all obstacle/tile types rendered on canvas, and a pixel-bordered UI for all menus, cards, and buttons. The style should feel like a retro arcade game.",
+      "acceptanceCriteria": [
+        "A pixel/retro font is used for all headings and UI labels",
+        "The overall color palette uses a dark background with neon accent colors (non-blue/purple)",
+        "The cube character and all tile types have distinct pixel art sprites rendered on canvas",
+        "Buttons and card components use pixel-style borders and hover effects consistent with a retro arcade aesthetic",
+        "The visual theme is consistent across all pages: home, level select, game, editor, community hub, and leaderboard"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Import a pixel/retro Google Font (e.g., 'Press Start 2P' or 'VT323') and apply it globally to headings and UI labels. Set a dark background color (near-black) and define CSS custom properties for vibrant neon accent colors (e.g., neon green, neon pink, neon orange) avoiding blue/purple. Apply pixel-style borders and button hover effects using border-image or box-shadow to simulate chunky pixels. Ensure the retro arcade aesthetic is consistent."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend the Tailwind theme with custom colors for the pixel art palette (dark background, neon accents). Add custom font families for the pixel/retro font. Configure Tailwind utilities to support pixel-bordered components and retro arcade styling."
+        },
+        {
+          "path": "frontend/src/components/ui/PixelButton.tsx",
+          "operation": "create",
+          "description": "Create a reusable PixelButton component that applies pixel-style borders, neon accent colors, and hover effects. Use this component throughout the app for consistent button styling."
+        },
+        {
+          "path": "frontend/src/components/ui/PixelCard.tsx",
+          "operation": "create",
+          "description": "Create a reusable PixelCard component for displaying level cards, leaderboard entries, and community level cards. Apply pixel-bordered styling and neon accents consistent with the retro arcade theme."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Render the generated pixel art sprite sheet assets (cube character, obstacle tiles, background tiles, UI icons) as static image files served from frontend/public/assets/generated.",
+      "acceptanceCriteria": [
+        "Sprite sheet images are placed in frontend/public/assets/generated",
+        "Game engine and level editor reference these files for tile and character rendering",
+        "Assets are visually consistent with the pixel art theme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/loadSprites.ts",
+          "operation": "create",
+          "description": "Create a utility module that loads and caches the generated sprite sheets: frontend/public/assets/generated/cube-sprites.dim_256x64.png, frontend/public/assets/generated/tile-sprites.dim_512x64.png, frontend/public/assets/generated/level-bg.dim_1920x360.png. Export functions to access individual sprite frames or tiles by index. Use Image objects and canvas slicing to extract sprites at runtime."
+        },
+        {
+          "path": "frontend/src/components/game/GameEngine.tsx",
+          "operation": "modify",
+          "description": "Import and use the loadSprites utility to render the cube character and tiles on the game canvas. Reference frontend/public/assets/generated/cube-sprites.dim_256x64.png for the player and frontend/public/assets/generated/tile-sprites.dim_512x64.png for obstacles and ground. Use frontend/public/assets/generated/level-bg.dim_1920x360.png for the parallax background."
+        },
+        {
+          "path": "frontend/src/components/editor/EditorCanvas.tsx",
+          "operation": "modify",
+          "description": "Import and use the loadSprites utility to render tile visuals in the level editor grid. Reference frontend/public/assets/generated/tile-sprites.dim_512x64.png for all tile types."
+        },
+        {
+          "path": "frontend/src/components/layout/Header.tsx",
+          "operation": "modify",
+          "description": "Display the app logo in the Header using the generated image frontend/public/assets/generated/logo.dim_512x128.png. Ensure the logo is visible and styled consistently with the pixel art theme."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-25T19:30:25.141Z",
+  "summary": "The diff implements a substantial portion of the requirements including backend Motoko actor, Internet Identity auth, game engine, pre-built levels, level editor, community hub, leaderboard page, and pixel art theme. However, several specific acceptance criteria are missing or unclear from the truncated diff, and some key features appear absent.",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "All state survives canister upgrades (stable storage)",
+      "reason": "The backend uses Map.empty and var declarations but no stable variables or pre/postupgrade hooks are visible in the truncated main.mo. Without stable storage declarations, state would not survive canister upgrades.",
+      "evidence": [
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-1",
+      "requirement": "Attempt count per level per player is stored in player profiles",
+      "reason": "The PlayerProfile type only contains username, unlockedLevels, and bestScoresPerLevel. There is no attempts-per-level field in the profile type.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Best score and attempts are submitted to the backend on completion or death",
+      "reason": "The GameEngine component has onComplete and onDeath callbacks but the diff is truncated. The PlayerProfile type lacks an attempts-per-level field, making it unclear if attempts are persisted correctly in the backend.",
+      "evidence": [
+        "frontend/src/components/game/GameEngine.tsx",
+        "backend/main.mo"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Levels are unlocked sequentially (complete level N to unlock N+1)",
+      "reason": "The LevelSelectPage is not included in the visible diff files, so sequential unlock logic cannot be verified. The PlayerProfile stores unlockedLevels array but enforcement in the UI is not shown.",
+      "evidence": [
+        "frontend/src/data/prebuiltLevels.ts",
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Tiles can be dragged from palette and placed on the grid via true drag-and-drop",
+      "reason": "The TilePalette uses onClick to select tiles and EditorCanvas uses mouse events for painting, which is click-to-select then paint interaction rather than true drag-and-drop from palette to grid as specified.",
+      "evidence": [
+        "frontend/src/components/editor/TilePalette.tsx",
+        "frontend/src/components/editor/EditorCanvas.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Community hub shows creator name",
+      "reason": "The LevelCard component in CommunityHubPage shows level ID but no creator name or username is displayed in the card UI.",
+      "evidence": [
+        "frontend/src/pages/CommunityHubPage.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "After completing a community level, authenticated players can submit a star rating",
+      "reason": "RatingDialog component exists, but wiring it to the game completion flow for community levels is not visible since GamePage is in the omitted files.",
+      "evidence": [
+        "frontend/src/components/community/RatingDialog.tsx"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Play count increments each time a level is started",
+      "reason": "useIncrementPlayCount hook is defined in useQueries.ts but whether it is called when a community level is started cannot be verified since GamePage is in the omitted files.",
+      "evidence": [
+        "frontend/src/hooks/useQueries.ts"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Each leaderboard row shows date achieved and the authenticated player's own entry is highlighted",
+      "reason": "LeaderboardPage is in omitted files and cannot be verified for date display or player highlighting.",
+      "evidence": []
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Sprite sheet images are placed in frontend/public/assets/generated",
+      "reason": "The generated image assets (cube-sprites.dim_256x64.png, tile-sprites.dim_512x64.png, level-bg.dim_1920x360.png, logo.dim_512x128.png) are referenced in code but no files under frontend/public/assets/generated appear in the added files list.",
+      "evidence": [
+        "frontend/src/components/game/GameEngine.tsx",
+        "frontend/src/components/layout/Header.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Admin access control system with MixinAuthorization and AccessControl modules including admin token initialization",
+      "reason": "The build request only specifies Internet Identity authentication with no mention of admin roles, access control mixins, or admin tokens. The backend imports MixinAuthorization and AccessControl with admin permissions, and the frontend calls _initializeAccessControlWithSecret with a caffeineAdminToken.",
+      "evidence": [
+        "backend/main.mo",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Ceiling tile type (type 5) in the tile palette and level editor",
+      "reason": "The build request specifies tile types: empty, ground block, spike, jump pad, and decorative tiles only. A ceiling tile type was not requested.",
+      "evidence": [
+        "frontend/src/components/editor/TilePalette.tsx",
+        "frontend/src/data/prebuiltLevels.ts"
+      ]
+    }
+  ],
+  "confidence": 0.62,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/PixelButton.tsx",
+    "frontend/src/components/PixelCard.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/community/RatingDialog.tsx",
+    "frontend/src/components/editor/EditorCanvas.tsx",
+    "frontend/src/components/editor/EditorControls.tsx",
+    "frontend/src/components/editor/TilePalette.tsx",
+    "frontend/src/components/game/GameEngine.tsx",
+    "frontend/src/components/game/LevelCompletionScreen.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/data/prebuiltLevels.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/utils.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CommunityHubPage.tsx",
+    "frontend/src/pages/GamePage.tsx",
+    "frontend/src/pages/LeaderboardPage.tsx",
+    "frontend/src/pages/LevelEditorPage.tsx",
+    "frontend/src/pages/LevelSelectPage.tsx",
+    "frontend/src/utils/loadSprites.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

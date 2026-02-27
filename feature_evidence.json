@@ -1,0 +1,176 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-login-logout-in-the-frontend-authenticated-players-see-their-username-progress-and-created-levels-unauthenticated-visitors-can-browse-and-play-levels-but-cannot-save-progress-publish-levels-or-appear-on-the-leaderboard",
+      "featureTitle": "Implement Internet Identity login/logout in the frontend. Authenticated players see their username, progress, and created levels. Unauthenticated visitors can browse and play levels but cannot save progress, publish levels, or appear on the leaderboard.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/layout/Header.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-rhythm-based-2d-platformer-game-engine-in-the-frontend-using-react-and-a-canvas-animation-loop-the-player-controls-a-cube-character-that-auto-runs-forward-pressing-space-or-tapping-causes-the-cube-to-jump-collision-with-spikes-or-obstacles-kills-the-player-and-restarts-the-level-the-game-tracks-percentage-completion-and-a-score-based-on-how-far-the-player-progresses-on-level-completion-save-the-best-score-and-increment-attempt-count-via-the-backend",
+      "featureTitle": "Build a rhythm-based 2D platformer game engine in the frontend using React and a canvas/animation loop. The player controls a cube character that auto-runs forward; pressing Space or tapping causes the cube to jump. Collision with spikes or obstacles kills the player and restarts the level. The game tracks percentage completion and a score based on how far the player progresses. On level completion, save the best score and increment attempt count via the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/game/GameEngine.tsx",
+        "frontend/src/components/game/LevelCompletionScreen.tsx",
+        "frontend/src/pages/GamePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-design-and-include-at-least-3-pre-built-levels-with-increasing-difficulty-encoded-as-tile-map-data-each-level-should-have-a-distinct-color-theme-obstacle-density-and-rhythm-pattern-timing-of-obstacles-to-match-a-beat-feel-levels-are-displayed-in-a-level-select-screen-sorted-by-difficulty",
+      "featureTitle": "Design and include at least 3 pre-built levels with increasing difficulty encoded as tile-map data. Each level should have a distinct color theme, obstacle density, and rhythm pattern (timing of obstacles to match a beat feel). Levels are displayed in a level-select screen sorted by difficulty.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/data/prebuiltLevels.ts",
+        "frontend/src/pages/LevelSelectPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-full-drag-and-drop-pixel-art-tile-grid-level-editor-the-editor-canvas-shows-a-scrollable-horizontal-grid-a-sidebar-palette-contains-all-tile-types-empty-ground-block-spike-jump-pad-and-decorative-tiles-players-drag-tiles-from-the-palette-onto-the-grid-the-editor-supports-undo-redo-a-play-test-mode-to-try-the-level-in-editor-and-a-publish-button-that-saves-the-level-to-the-backend-under-the-authenticated-player-s-account",
+      "featureTitle": "Build a full drag-and-drop pixel art tile-grid level editor. The editor canvas shows a scrollable horizontal grid. A sidebar palette contains all tile types: empty, ground block, spike, jump pad, and decorative tiles. Players drag tiles from the palette onto the grid. The editor supports undo/redo, a play-test mode to try the level in-editor, and a Publish button that saves the level to the backend under the authenticated player's account.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/editor/EditorCanvas.tsx",
+        "frontend/src/components/editor/EditorControls.tsx",
+        "frontend/src/components/editor/TilePalette.tsx",
+        "frontend/src/pages/LevelEditorPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-community-levels-hub-page-where-players-can-browse-published-levels-the-page-lists-levels-with-their-title-creator-name-play-count-and-average-rating-players-can-click-a-level-to-play-it-and-submit-a-1-5-star-rating-after-completion-authenticated-players-can-also-delete-their-own-published-levels",
+      "featureTitle": "Build a Community Levels hub page where players can browse published levels. The page lists levels with their title, creator name, play count, and average rating. Players can click a level to play it and submit a 1–5 star rating after completion. Authenticated players can also delete their own published levels.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/community/RatingDialog.tsx",
+        "frontend/src/pages/CommunityHubPage.tsx",
+        "frontend/src/pages/GamePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-a-global-leaderboard-page-that-displays-the-top-10-scores-per-level-both-pre-built-and-community-levels-each-entry-shows-rank-player-name-derived-from-their-principal-or-a-set-display-name-score-and-date-achieved-tabs-or-a-dropdown-allow-switching-between-levels",
+      "featureTitle": "Build a Global Leaderboard page that displays the top 10 scores per level (both pre-built and community levels). Each entry shows rank, player name (derived from their principal or a set display name), score, and date achieved. Tabs or a dropdown allow switching between levels.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/LeaderboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-cohesive-pixel-art-visual-theme-throughout-the-entire-application-chunky-pixel-style-typography-e-g-a-pixel-retro-google-font-a-dark-background-with-vibrant-neon-accent-colors-pixelated-sprites-for-the-cube-character-and-all-obstacle-tile-types-rendered-on-canvas-and-a-pixel-bordered-ui-for-all-menus-cards-and-buttons-the-style-should-feel-like-a-retro-arcade-game",
+      "featureTitle": "Apply a cohesive pixel art visual theme throughout the entire application: chunky pixel-style typography (e.g., a pixel/retro Google Font), a dark background with vibrant neon accent colors, pixelated sprites for the cube character and all obstacle/tile types rendered on canvas, and a pixel-bordered UI for all menus, cards, and buttons. The style should feel like a retro arcade game.",
+      "files": [
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-render-the-generated-pixel-art-sprite-sheet-assets-cube-character-obstacle-tiles-background-tiles-ui-icons-as-static-image-files-served-from-frontend-public-assets-generated",
+      "featureTitle": "Render the generated pixel art sprite sheet assets (cube character, obstacle tiles, background tiles, UI icons) as static image files served from frontend/public/assets/generated.",
+      "files": [
+        "frontend/src/components/editor/EditorCanvas.tsx",
+        "frontend/src/components/game/GameEngine.tsx",
+        "frontend/src/components/layout/Header.tsx",
+        "frontend/src/utils/loadSprites.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

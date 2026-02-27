@@ -1,0 +1,278 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-25T19:30:25.145Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 9,
+    "implemented": 8,
+    "items": [
+      {
+        "id": "REQ-1",
+        "summary": "Implement a Motoko backend actor that stores and retrieves all persistent game data: player profiles (principal → username, levels unlocked, attempts per level, best score per level), community-published levels (id, creator principal, title, tile data, play count, ratings), and a global leaderboard (top scores per level across all players).",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Implement Internet Identity login/logout in the frontend. Authenticated players see their username, progress, and created levels. Unauthenticated visitors can browse and play levels but cannot save progress, publish levels, or appear on the leaderboard.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/layout/Header.tsx",
+          "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/layout/Header.tsx",
+          "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Build a rhythm-based 2D platformer game engine in the frontend using React and a canvas/animation loop. The player controls a cube character that auto-runs forward; pressing Space or tapping causes the cube to jump. Collision with spikes or obstacles kills the player and restarts the level. The game tracks percentage completion and a score based on how far the player progresses. On level completion, save the best score and increment attempt count via the backend.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/game/GameEngine.tsx",
+          "frontend/src/components/game/LevelCompletionScreen.tsx",
+          "frontend/src/pages/GamePage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/game/GameEngine.tsx",
+          "frontend/src/components/game/LevelCompletionScreen.tsx",
+          "frontend/src/pages/GamePage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Design and include at least 3 pre-built levels with increasing difficulty encoded as tile-map data. Each level should have a distinct color theme, obstacle density, and rhythm pattern (timing of obstacles to match a beat feel). Levels are displayed in a level-select screen sorted by difficulty.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/data/prebuiltLevels.ts",
+          "frontend/src/pages/LevelSelectPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/data/prebuiltLevels.ts",
+          "frontend/src/pages/LevelSelectPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-5",
+        "summary": "Build a full drag-and-drop pixel art tile-grid level editor. The editor canvas shows a scrollable horizontal grid. A sidebar palette contains all tile types: empty, ground block, spike, jump pad, and decorative tiles. Players drag tiles from the palette onto the grid. The editor supports undo/redo, a play-test mode to try the level in-editor, and a Publish button that saves the level to the backend under the authenticated player's account.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/editor/TilePalette.tsx",
+          "frontend/src/components/editor/EditorCanvas.tsx",
+          "frontend/src/components/editor/EditorControls.tsx",
+          "frontend/src/pages/LevelEditorPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/editor/TilePalette.tsx",
+          "frontend/src/components/editor/EditorCanvas.tsx",
+          "frontend/src/components/editor/EditorControls.tsx",
+          "frontend/src/pages/LevelEditorPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-6",
+        "summary": "Build a Community Levels hub page where players can browse published levels. The page lists levels with their title, creator name, play count, and average rating. Players can click a level to play it and submit a 1–5 star rating after completion. Authenticated players can also delete their own published levels.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/CommunityHubPage.tsx",
+          "frontend/src/components/community/RatingDialog.tsx",
+          "frontend/src/pages/GamePage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/CommunityHubPage.tsx",
+          "frontend/src/components/community/RatingDialog.tsx",
+          "frontend/src/pages/GamePage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-7",
+        "summary": "Build a Global Leaderboard page that displays the top 10 scores per level (both pre-built and community levels). Each entry shows rank, player name (derived from their principal or a set display name), score, and date achieved. Tabs or a dropdown allow switching between levels.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LeaderboardPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LeaderboardPage.tsx",
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Apply a cohesive pixel art visual theme throughout the entire application: chunky pixel-style typography (e.g., a pixel/retro Google Font), a dark background with vibrant neon accent colors, pixelated sprites for the cube character and all obstacle/tile types rendered on canvas, and a pixel-bordered UI for all menus, cards, and buttons. The style should feel like a retro arcade game.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/ui/PixelButton.tsx",
+          "frontend/src/components/ui/PixelCard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css",
+          "frontend/tailwind.config.js",
+          "frontend/src/components/ui/PixelButton.tsx",
+          "frontend/src/components/ui/PixelCard.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Render the generated pixel art sprite sheet assets (cube character, obstacle tiles, background tiles, UI icons) as static image files served from frontend/public/assets/generated.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/utils/loadSprites.ts",
+          "frontend/src/components/game/GameEngine.tsx",
+          "frontend/src/components/editor/EditorCanvas.tsx",
+          "frontend/src/components/layout/Header.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/utils/loadSprites.ts",
+          "frontend/src/components/game/GameEngine.tsx",
+          "frontend/src/components/editor/EditorCanvas.tsx",
+          "frontend/src/components/layout/Header.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/authorization/MixinAuthorization.mo",
+    "backend/authorization/access-control.mo",
+    "backend/main.mo",
+    "build-request.json",
+    "build-template/Dockerfile",
+    "build-template/LICENSE",
+    "build-template/README.md",
+    "build-template/deploy.sh",
+    "build-template/icp.yaml",
+    "build-template/package.json",
+    "build-template/pnpm-lock.yaml",
+    "build-template/pnpm-workspace.yaml",
+    "build-template/scripts/prune-unused-images.js",
+    "build-template/scripts/resize-images.js",
+    "build-template/src/backend/canister.yaml",
+    "build-template/src/backend/system-idl/aaaaa-aa.did",
+    "build-template/src/frontend/canister.yaml",
+    "build-template/src/frontend/components.json",
+    "build-template/src/frontend/env.json",
+    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
+    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
+    "build-template/src/frontend/eslint.config.js",
+    "build-template/src/frontend/package.json",
+    "build-template/src/frontend/postcss.config.js",
+    "build-template/src/frontend/src/components/ui/accordion.tsx",
+    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
+    "build-template/src/frontend/src/components/ui/alert.tsx",
+    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
+    "build-template/src/frontend/src/components/ui/avatar.tsx",
+    "build-template/src/frontend/src/components/ui/badge.tsx",
+    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
+    "build-template/src/frontend/src/components/ui/button.tsx",
+    "build-template/src/frontend/src/components/ui/calendar.tsx",
+    "build-template/src/frontend/src/components/ui/card.tsx",
+    "build-template/src/frontend/src/components/ui/carousel.tsx",
+    "build-template/src/frontend/src/components/ui/chart.tsx",
+    "build-template/src/frontend/src/components/ui/checkbox.tsx",
+    "build-template/src/frontend/src/components/ui/collapsible.tsx",
+    "build-template/src/frontend/src/components/ui/command.tsx",
+    "build-template/src/frontend/src/components/ui/context-menu.tsx",
+    "build-template/src/frontend/src/components/ui/dialog.tsx",
+    "build-template/src/frontend/src/components/ui/drawer.tsx",
+    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
+    "build-template/src/frontend/src/components/ui/form.tsx",
+    "build-template/src/frontend/src/components/ui/hover-card.tsx",
+    "build-template/src/frontend/src/components/ui/input-otp.tsx",
+    "build-template/src/frontend/src/components/ui/input.tsx",
+    "build-template/src/frontend/src/components/ui/label.tsx",
+    "build-template/src/frontend/src/components/ui/menubar.tsx",
+    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
+    "build-template/src/frontend/src/components/ui/pagination.tsx",
+    "build-template/src/frontend/src/components/ui/popover.tsx",
+    "build-template/src/frontend/src/components/ui/progress.tsx",
+    "build-template/src/frontend/src/components/ui/radio-group.tsx",
+    "build-template/src/frontend/src/components/ui/resizable.tsx",
+    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
+    "build-template/src/frontend/src/components/ui/select.tsx",
+    "build-template/src/frontend/src/components/ui/separator.tsx",
+    "build-template/src/frontend/src/components/ui/sheet.tsx",
+    "build-template/src/frontend/src/components/ui/sidebar.tsx",
+    "build-template/src/frontend/src/components/ui/skeleton.tsx",
+    "build-template/src/frontend/src/components/ui/slider.tsx",
+    "build-template/src/frontend/src/components/ui/sonner.tsx",
+    "build-template/src/frontend/src/components/ui/switch.tsx",
+    "build-template/src/frontend/src/components/ui/table.tsx",
+    "build-template/src/frontend/src/components/ui/tabs.tsx",
+    "build-template/src/frontend/src/components/ui/textarea.tsx",
+    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
+    "build-template/src/frontend/src/components/ui/toggle.tsx",
+    "build-template/src/frontend/src/components/ui/tooltip.tsx",
+    "build-template/src/frontend/src/hooks/use-mobile.tsx",
+    "build-template/src/frontend/src/lib/utils.ts",
+    "build-template/src/frontend/tsconfig.json",
+    "build-template/src/frontend/vite.config.js",
+    "build-template/tsconfig.json",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/public/assets/generated/cube-sprites.dim_256x64.png",
+    "frontend/public/assets/generated/level-bg.dim_1920x360.png",
+    "frontend/public/assets/generated/logo.dim_512x128.png",
+    "frontend/public/assets/generated/tile-sprites.dim_512x64.png",
+    "frontend/src/App.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/PixelButton.tsx",
+    "frontend/src/components/PixelCard.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/community/RatingDialog.tsx",
+    "frontend/src/components/editor/EditorCanvas.tsx",
+    "frontend/src/components/editor/EditorControls.tsx",
+    "frontend/src/components/editor/TilePalette.tsx",
+    "frontend/src/components/game/GameEngine.tsx",
+    "frontend/src/components/game/LevelCompletionScreen.tsx",
+    "frontend/src/components/layout/Header.tsx",
+    "frontend/src/components/ui/PixelButton.tsx",
+    "frontend/src/components/ui/PixelCard.tsx",
+    "frontend/src/config.ts",
+    "frontend/src/data/prebuiltLevels.ts",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/utils.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/CommunityHubPage.tsx",
+    "frontend/src/pages/GamePage.tsx",
+    "frontend/src/pages/LeaderboardPage.tsx",
+    "frontend/src/pages/LevelEditorPage.tsx",
+    "frontend/src/pages/LevelSelectPage.tsx",
+    "frontend/src/ui-summary.json",
+    "frontend/src/utils/StorageClient.ts",
+    "frontend/src/utils/loadSprites.ts",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
